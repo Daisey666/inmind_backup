@@ -1,0 +1,11 @@
+compile:
+cd jni
+ndk-build
+cd ..
+cp libs/armeabi/libopensmiletest.so lib/armeabi-v7a/
+jar -cf opensmile_so.jar lib/
+cp opensmile_so.jar ~/github/Git/InMindAgent/app/libs/
+cp opensmile_so.jar ~/demo_tmp/InMindAgent/app/libs/
+cp opensmile_so.jar ~/demo_tmp/VoiceTest/app/libs/
+
+

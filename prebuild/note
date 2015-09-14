@@ -1,0 +1,3 @@
+scp tingyaoh@tts.speech.cs.cmu.edu:/home2/tingyaoh/distraction_demo/openSMILE-2.1.0/.libs/libopensmile.a ./
+scp tingyaoh@tts.speech.cs.cmu.edu:/home2/tingyaoh/distraction_demo/openSMILE-2.1.0/.libs/libopensmile.so.0.0.0 ./libopensmile.so
+

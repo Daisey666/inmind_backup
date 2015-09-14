@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/classes-78686e1b7a954c59c75f9d8af12fa971d8fd03a4.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3/5fc52c41ef0239d1093a1eb7c3697036183677ce/gson-2.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5fc52c41ef0239d1093a1eb7c3697036183677ce">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/gson-2.3-a3e6eb77cfe4930f807f8ba109f7fb2dd02c3c83.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/.gradle/caches/modules-2/files-2.1/com.googlecode.json-simple/json-simple/1.1.1/c9ad4a0850ab676c5c64461a05ca524cdfff59f1/json-simple-1.1.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c9ad4a0850ab676c5c64461a05ca524cdfff59f1">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/json-simple-1.1.1-3b668464010d2d0ed92eb574b737e7c7c5adf694.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-f708aeceb3fd9c12f63eea59cf1228953476b943.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/exploded-aar/InMindAgent/news/unspecified/libs/external_android-flip.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ef481ace9d4312bcd35a09cbc8b7949ff4782d2e">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/external_android-flip-047d12bb2c8e65bf0c48fe51ebf3cda4225f4420.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/demo_tmp/InMindAgent/app/libs/pocketsphinx-android-0.8-nolib.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="79e72ad97c6001aa89f3a250970615d92eb05fb8">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/pocketsphinx-android-0.8-nolib-295ae800c7b9d66fad9d987c62e53de22a9cd83b.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-d7b0b35be14e8993857e4626569eddda797e3f57.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/18.0/cce0823396aa693798f8882e64213b1772032b09/guava-18.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="cce0823396aa693798f8882e64213b1772032b09">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/guava-18.0-773c0bac6eb7edd3209018b88e3b81410acf7fb8.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/2.1/87c0ea803b69252868d09308b4618f766f135a96/objenesis-2.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="87c0ea803b69252868d09308b4618f766f135a96">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/objenesis-2.1-bed601cb37b07131a424806ee6f91cb423ea56c2.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/exploded-aar/InMindAgent/middleware/unspecified/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4c1fb59c2d1f5e911bf3f2bdea6b8f3ceecd6ab4">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/classes-0b4323e50460e8b1e1d044df45e2dac9307c11f6.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/demo_tmp/InMindAgent/app/libs/opensmile_so.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7f84bd7b7946bdd08b507ccd23c47dd96511a033">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/opensmile_so-d4879a52158b7fe19fb0a995458301c966e4bb2a.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/demo_tmp/InMindAgent/app/libs/poketSphinx_jni_so.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2155857af4ed1121f1d62a42a9011f0ac83b649f">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/poketSphinx_jni_so-3b1042c51d38f59d453a2d73f8935905239a6f31.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/classes-29c4495117113e4dc4da3b0bf3a844a46f359ac8.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.6/b7f0fc8f61ecadeb3695f0b9464755eee44374d4/commons-codec-1.6.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b7f0fc8f61ecadeb3695f0b9464755eee44374d4">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/commons-codec-1.6-ea7b59a36625490c289097c923119d2c61773ecf.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.3.2/31fbbff1ddbf98f3aa7377c94d33b0447c646b6e/httpcore-4.3.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="31fbbff1ddbf98f3aa7377c94d33b0447c646b6e">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/httpcore-4.3.2-564f9d7b27485259d630f1610dd80464dd5f9006.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/exploded-aar/InMindAgent/commons/unspecified/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8b350783144569bc1b6fc707b5807dfeb0c39dc7">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/classes-3d53a5542d5b782b843b005fdedce24cc06d5e2b.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/.gradle/caches/modules-2/files-2.1/de.greenrobot/eventbus/2.4.0/ddd166d01b3158d1c00576d29f7ed15c030df719/eventbus-2.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ddd166d01b3158d1c00576d29f7ed15c030df719">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/eventbus-2.4.0-c2fcc0d5ef59f058c5b9d121f0ac269a3185fcdf.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/exploded-aar/InMindAgent/news/unspecified/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a6298bdf00c40175117182fbce32d725194557b6">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/classes-635a50c47fc16588c83c6a154af16a3b0f5f44ad.jar" />
+    </item>
+    <item
+        jar="/Users/tingyao/.gradle/caches/modules-2/files-2.1/uk.com.robust-it/cloning/1.9.1/254011d483c2e6560af1e44cde9385eb3b6da6a5/cloning-1.9.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="254011d483c2e6560af1e44cde9385eb3b6da6a5">
+        <dex dex="/Users/tingyao/demo_tmp/InMindAgent/app/build/intermediates/pre-dexed/debug/cloning-1.9.1-0ba6511736701e45f8ae7e25a8346a5c06718eca.jar" />
+    </item>
+
+</items>

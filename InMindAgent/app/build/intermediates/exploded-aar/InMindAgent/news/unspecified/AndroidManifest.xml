@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yahoo.inmind.reader"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="21" />
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application android:supportsRtl="true" >
+        <activity
+            android:name="com.yahoo.inmind.reader.ReaderMainActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/news_name" >
+        </activity>
+        <activity
+            android:name="com.yahoo.inmind.browser.BaseBrowser"
+            android:configChanges="orientation|screenSize" >
+        </activity>
+        <activity
+            android:name="com.yahoo.inmind.browser.LoginBrowser"
+            android:configChanges="orientation|screenSize" >
+        </activity>
+        <activity
+            android:name="com.yahoo.inmind.reader.SettingsActivity"
+            android:configChanges="orientation|screenSize" >
+        </activity>
+
+        <receiver android:name="com.yahoo.inmind.reader.NetworkStateReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

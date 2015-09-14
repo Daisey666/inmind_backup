@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="poketSphinx_jni_so">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/poketSphinx_jni_so.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

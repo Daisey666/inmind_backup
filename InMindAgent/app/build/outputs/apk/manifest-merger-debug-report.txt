@@ -1,0 +1,144 @@
+-- Merging decision tree log ---
+manifest
+ADDED from AndroidManifest.xml:2:1
+	xmlns:android
+		ADDED from AndroidManifest.xml:2:11
+	package
+		ADDED from AndroidManifest.xml:3:5
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+	android:versionName
+		ADDED from AndroidManifest.xml:5:5
+	android:versionCode
+		ADDED from AndroidManifest.xml:4:5
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+uses-sdk
+ADDED from AndroidManifest.xml:7:5
+MERGED from com.android.support:appcompat-v7:21.0.3:15:5
+MERGED from com.android.support:support-v4:21.0.3:15:5
+MERGED from InMindAgent:commons:unspecified:7:5
+MERGED from InMindAgent:news:unspecified:7:5
+MERGED from InMindAgent:middleware:unspecified:7:5
+	android:targetSdkVersion
+		ADDED from AndroidManifest.xml:9:9
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+	android:minSdkVersion
+		ADDED from AndroidManifest.xml:8:9
+uses-permission#android.permission.INTERNET
+ADDED from AndroidManifest.xml:10:5
+MERGED from InMindAgent:news:unspecified:12:5
+	android:name
+		ADDED from AndroidManifest.xml:10:22
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from AndroidManifest.xml:11:5
+	android:name
+		ADDED from AndroidManifest.xml:11:22
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from AndroidManifest.xml:12:5
+	android:name
+		ADDED from AndroidManifest.xml:12:22
+application
+ADDED from AndroidManifest.xml:13:5
+MERGED from com.android.support:appcompat-v7:21.0.3:16:5
+MERGED from com.android.support:support-v4:21.0.3:16:5
+MERGED from InMindAgent:commons:unspecified:11:5
+MERGED from InMindAgent:news:unspecified:19:5
+MERGED from InMindAgent:middleware:unspecified:11:5
+	android:supportsRtl
+		ADDED from InMindAgent:news:unspecified:19:18
+	android:label
+		ADDED from AndroidManifest.xml:17:9
+	android:allowBackup
+		ADDED from AndroidManifest.xml:15:9
+	android:icon
+		ADDED from AndroidManifest.xml:16:9
+	android:theme
+		ADDED from AndroidManifest.xml:18:9
+	android:launchMode
+		ADDED from AndroidManifest.xml:14:9
+activity#com.inMind.inMindAgent.MainActivity
+ADDED from AndroidManifest.xml:19:9
+	android:label
+		ADDED from AndroidManifest.xml:21:13
+	android:name
+		ADDED from AndroidManifest.xml:20:13
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:22:13
+action#android.intent.action.MAIN
+ADDED from AndroidManifest.xml:23:17
+	android:name
+		ADDED from AndroidManifest.xml:23:25
+category#android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:25:17
+	android:name
+		ADDED from AndroidManifest.xml:25:27
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from InMindAgent:news:unspecified:11:5
+	android:name
+		ADDED from InMindAgent:news:unspecified:11:22
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from InMindAgent:news:unspecified:13:5
+	android:name
+		ADDED from InMindAgent:news:unspecified:13:22
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from InMindAgent:news:unspecified:14:5
+	android:name
+		ADDED from InMindAgent:news:unspecified:14:22
+uses-permission#android.permission.GET_ACCOUNTS
+ADDED from InMindAgent:news:unspecified:15:5
+	android:name
+		ADDED from InMindAgent:news:unspecified:15:22
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from InMindAgent:news:unspecified:16:5
+	android:name
+		ADDED from InMindAgent:news:unspecified:16:22
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from InMindAgent:news:unspecified:17:5
+	android:name
+		ADDED from InMindAgent:news:unspecified:17:22
+activity#com.yahoo.inmind.reader.ReaderMainActivity
+ADDED from InMindAgent:news:unspecified:20:9
+	android:label
+		ADDED from InMindAgent:news:unspecified:23:13
+	android:configChanges
+		ADDED from InMindAgent:news:unspecified:22:13
+	android:name
+		ADDED from InMindAgent:news:unspecified:21:13
+activity#com.yahoo.inmind.browser.BaseBrowser
+ADDED from InMindAgent:news:unspecified:25:9
+	android:configChanges
+		ADDED from InMindAgent:news:unspecified:27:13
+	android:name
+		ADDED from InMindAgent:news:unspecified:26:13
+activity#com.yahoo.inmind.browser.LoginBrowser
+ADDED from InMindAgent:news:unspecified:29:9
+	android:configChanges
+		ADDED from InMindAgent:news:unspecified:31:13
+	android:name
+		ADDED from InMindAgent:news:unspecified:30:13
+activity#com.yahoo.inmind.reader.SettingsActivity
+ADDED from InMindAgent:news:unspecified:33:9
+	android:configChanges
+		ADDED from InMindAgent:news:unspecified:35:13
+	android:name
+		ADDED from InMindAgent:news:unspecified:34:13
+receiver#com.yahoo.inmind.reader.NetworkStateReceiver
+ADDED from InMindAgent:news:unspecified:38:9
+	android:name
+		ADDED from InMindAgent:news:unspecified:38:19
+intent-filter#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from InMindAgent:news:unspecified:39:13
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from InMindAgent:news:unspecified:40:17
+	android:name
+		ADDED from InMindAgent:news:unspecified:40:25
+service#com.yahoo.inmind.middleware.control.NewsService
+ADDED from InMindAgent:middleware:unspecified:12:9
+	android:exported
+		ADDED from InMindAgent:middleware:unspecified:15:13
+	android:enabled
+		ADDED from InMindAgent:middleware:unspecified:14:13
+	android:name
+		ADDED from InMindAgent:middleware:unspecified:13:13
