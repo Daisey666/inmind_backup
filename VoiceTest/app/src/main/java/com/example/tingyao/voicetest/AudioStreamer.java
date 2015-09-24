@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.net.Socket;
 import java.net.InetAddress;
 import java.io.InputStreamReader;
+import java.lang.Math.*;
 
 import android.media.AudioFormat;
 import android.media.AudioRecord;
@@ -72,13 +73,13 @@ public class AudioStreamer {
     public int DistractionDetection(){
         //VAD
         double energyTotal=0;
-        double energyDiffVar=0;
         double energySeg=0;
         int segcount = 0;
         int distractEncode=0;
         final Queue<short[]> signaltmp=signalQE;
         Object[] filler_buf;
         float[] smile_output;
+        float[] feature = new float[6];
 
         //for (int i = 0; i < signalQE.size(); i++) {
         for(short[] shorttmp: signaltmp){
@@ -99,17 +100,20 @@ public class AudioStreamer {
 
         //Filler Speech Detection
         //for test
-        if(signaltmp.size()==queueSize) {
-            for (int i = 0; i < queueSize - 1; i++)
-                energyDistDiff[i] = Math.abs(energyDist[i] - energyDist[i + 1]);
-            energyDiffVar=Variance(energyDistDiff);
-            Log.d("ddd", "variance: " + energyDiffVar);
-            //Log.d("ddd", "variance: " + Variance(energyDist));
-            //Log.d("ddd", "diff variance: " + Variance(energyDistDiff));
-        }
-        //test opensmile\
+        //test opensmile
         filler_buf = signaltmp.toArray();
         smile_output=opensmilefunc(filler_buf);
+
+        //my own functional statistics
+        feature[0] = LinearCoefA(smile_output,39,smile_output.length/39,14);
+        feature[1] = LinearCoefA(smile_output,39,smile_output.length/39,16);
+        feature[2] = LinearCoefA(smile_output,39,smile_output.length/39,18);
+        feature[3] = LinearCoefA(smile_output,39,smile_output.length/39,19);
+        feature[4] = Stddev(smile_output,39,smile_output.length/39,16);
+        feature[5] = Stddev(smile_output,39,smile_output.length/39,18);
+        System.out.println(feature);
+        //linear classification
+
 
         System.out.println(smile_output.length);
         //smile_output=opensmilefunc(filler_buf);
@@ -137,6 +141,31 @@ public class AudioStreamer {
         return var2-(mean*mean);
     }
 
+    public float Stddev(float[] mat, int rnum, int cnum, int idx){
+        float mean = Mean(mat,rnum,cnum,idx),var = 0;
+        for(int i = 0;i<cnum;i++)
+            var+=mat[rnum*i+idx]*mat[rnum*i+idx];
+        return (float) Math.sqrt((double)var);
+    }
+
+    public float Mean(float[] mat, int rnum, int cnum, int idx){
+        float mean=0;
+        for(int i = 0;i<cnum;i++)
+            mean+=mat[rnum*i+idx];
+        mean/=cnum;
+        return mean;
+    }
+
+    public float LinearCoefA(float[] mat, int rnum, int cnum, int idx){
+        float sumX = 0, sumXX=0, sumY=0, sumXY=0;
+        for(int i = 0;i<cnum;i++){
+            sumX+=i;
+            sumXX+=i*i;
+            sumY+=mat[rnum*i+idx];
+            sumXY+=i*mat[rnum*i+idx];
+        }
+        return (sumXY-sumX*sumY/cnum)/(sumXX-sumX*sumX/cnum);
+    }
 
     public short[] byte2short(byte[] buf, int bufsize){
         short[] audioSeg=new short[bufsize/2];
