@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:text="Press To Test"
         android:id="@+id/button_start"
-        android:layout_above="@+id/button_stop"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="123dp" />
+        android:layout_marginTop="67dp" />
 
     <ImageView
         android:id="@+id/image_recording"
@@ -20,8 +20,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/not_recording"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp">
+        android:layout_centerHorizontal="true">
     </ImageView>
 
     <Button
@@ -29,9 +28,9 @@
         android:layout_height="wrap_content"
         android:text="STOP"
         android:id="@+id/button_stop"
-        android:layout_marginBottom="63dp"
         android:layout_above="@+id/image_recording"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="54dp" />
 
     <Button
         android:layout_width="wrap_content"

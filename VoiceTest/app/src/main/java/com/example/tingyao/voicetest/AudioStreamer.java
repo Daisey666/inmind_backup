@@ -11,6 +11,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.LinkedList;
 import java.util.Iterator;
+import java.util.Arrays;
 import java.io.FileOutputStream;
 import java.net.Socket;
 import java.net.InetAddress;
@@ -34,13 +35,19 @@ public class AudioStreamer {
     private boolean status = false;
     private int sampleRate=16000;
     private Handler userNotifierHandler;
+    private Handler distractionHandler;
     //private FileOutputStream fop;
 
     private File historyRaw = new File("/sdcard/history.raw");
     //private Queue<short[]> signalQE = new LinkedList<short[]>();
     private Queue<short[]> signalQE = new ConcurrentLinkedQueue<short[]>();
-    private int queueSize = 40;
-    private Handler distractionHandler;
+    private int queueSize = 100;
+    Queue<float[]> MFCCQueue = new ConcurrentLinkedQueue<float[]>();
+    int mfccQueueSize = 30;
+    float[] MFCCs = new float[mfccQueueSize*39];
+    float[] mfcc_buf;
+    private float[] classifier_coef;
+    private float bias;
 
     //amplification of playback
     double maximumEn; //record the maximum energy of the current utterance
@@ -68,6 +75,13 @@ public class AudioStreamer {
         //initialization for filler speech detection
         energyDist = new double[queueSize];
         energyDistDiff = new double[queueSize-1];
+        classifier_coef = new float[5];
+        classifier_coef[0] = (float)-0.16523084;
+        classifier_coef[1] = (float)0.02930656;
+        classifier_coef[2] = (float)0.04600631;
+        classifier_coef[3] = (float)-0.09614151;
+        classifier_coef[4] = (float)0.01635;
+        bias = (float) -1.45;
     }
 
     public int DistractionDetection(){
@@ -79,7 +93,11 @@ public class AudioStreamer {
         final Queue<short[]> signaltmp=signalQE;
         Object[] filler_buf;
         float[] smile_output;
-        float[] feature = new float[6];
+        float[] feature = new float[5];
+
+        float[] sorted;
+
+        float filler_output;
 
         //for (int i = 0; i < signalQE.size(); i++) {
         for(short[] shorttmp: signaltmp){
@@ -97,7 +115,29 @@ public class AudioStreamer {
         if (energyTotal>maximumEn)
             maximumEn=energyTotal;
 
+        System.out.println(energyTotal);
+        if (energyTotal < 5.0E8)
+            distractEncode+=1;
 
+        if(distractEncode==0)
+        {
+            filler_buf = signaltmp.toArray();
+            smile_output=opensmilefunc(filler_buf);
+
+            sorted = mysort(smile_output, 39, smile_output.length / 39, 0);
+            feature[0] = quartile1(sorted);
+            feature[1] = quartile3(sorted)-feature[0];
+            feature[2] = percentile1(sorted);
+            sorted = mysort(smile_output,39,smile_output.length/39,2);
+            feature[3] = quartile1(sorted);
+            feature[4] = LinearRegErrorA(smile_output, 39, smile_output.length / 39, 0);
+
+            filler_output = dot(classifier_coef,feature)+bias;
+            System.out.println("filler output:"+filler_output);
+            if(filler_output>1.2)
+                distractEncode+=2;
+        }
+        /*
         //Filler Speech Detection
         //for test
         //test opensmile
@@ -105,26 +145,55 @@ public class AudioStreamer {
         smile_output=opensmilefunc(filler_buf);
 
         //my own functional statistics
-        feature[0] = LinearCoefA(smile_output,39,smile_output.length/39,14);
-        feature[1] = LinearCoefA(smile_output,39,smile_output.length/39,16);
-        feature[2] = LinearCoefA(smile_output,39,smile_output.length/39,18);
-        feature[3] = LinearCoefA(smile_output,39,smile_output.length/39,19);
-        feature[4] = Stddev(smile_output,39,smile_output.length/39,16);
-        feature[5] = Stddev(smile_output,39,smile_output.length/39,18);
-        System.out.println(feature);
+        sorted = mysort(smile_output,39,smile_output.length/39,0);
+        feature[0] = quartile1(sorted);
+        feature[1] = quartile3(sorted)-feature[0];
+        feature[2] = percentile1(sorted);
+        sorted = mysort(smile_output,39,smile_output.length/39,2);
+        feature[3] = quartile1(sorted);
+        feature[4] = LinearRegErrorA(smile_output,39,smile_output.length/39,0);
+
+        //feature[0] = LinearCoefA(smile_output,39,smile_output.length/39,14);
+        //feature[1] = LinearCoefA(smile_output,39,smile_output.length/39,16);
+        //feature[2] = LinearCoefA(smile_output,39,smile_output.length/39,18);
+        //feature[3] = LinearCoefA(smile_output,39,smile_output.length/39,19);
+        //feature[4] = Stddev(smile_output,39,smile_output.length/39,14);
+        //feature[5] = Stddev(smile_output,39,smile_output.length/39,16);
+        //feature[6] = Stddev(smile_output,39,smile_output.length/39,18);
+        //feature[7] = Stddev(smile_output,39,smile_output.length/39,19);
+
+        //feature[0] = Stddev(smile_output,39,smile_output.length/39,13);
+        //feature[1] = Stddev(smile_output,39,smile_output.length/39,14);
+        //feature[2] = Stddev(smile_output,39,smile_output.length/39,15);
+        //feature[3] = Stddev(smile_output,39,smile_output.length/39,16);
+        //feature[0] = LinearCoefA(smile_output,39,smile_output.length/39,17);
+        //feature[1] = LinearCoefA(smile_output,39,smile_output.length/39,18);
+        //feature[2] = LinearCoefA(smile_output,39,smile_output.length/39,19);
+        //feature[3] = LinearCoefA(smile_output,39,smile_output.length/39,20);
+        //feature[4] = Stddev(smile_output,39,smile_output.length/39,16);
+        //feature[5] = Stddev(smile_output,39,smile_output.length/39,17);
+        //feature[6] = Stddev(smile_output,39,smile_output.length/39,18);
+        //feature[7] = Stddev(smile_output,39,smile_output.length/39,19);
+
+        filler_output = dot(classifier_coef,feature)+bias;
+        System.out.println("filler output:"+filler_output);
+        //System.out.println("Linear error:"+feature[4]);
+
+
         //linear classification
 
 
-        System.out.println(smile_output.length);
+        //System.out.println(smile_output.length);
         //smile_output=opensmilefunc(filler_buf);
         //System.out.println("second opensmile");
         //jniUtilTest(filler_buf);
+*/
 
-        System.out.println(energyTotal);
-        if (energyTotal < 6.0E10)
-            distractEncode+=1;
+
         //if (energyDiffVar < 3.0E14)
         //    distractEncode+=2;
+        //if(filler_output>25.0)
+        //    distractEncode+=1;
         return distractEncode;
     }
 
@@ -141,11 +210,47 @@ public class AudioStreamer {
         return var2-(mean*mean);
     }
 
+    public float[] mysort(float[] mat, int rnum, int cnum, int idx){
+        float[] sorted = new float[cnum];
+        for(int i = 0;i<cnum;i++)
+            sorted[i] = mat[rnum*i+idx];
+        Arrays.sort(sorted);
+        return sorted;
+    }
+
+    public float quartile1(float[] sortedArr){
+        int size = sortedArr.length/4;
+        float q1=0;
+        for(int i=0;i<size;i++)
+            q1+=sortedArr[i];
+        q1/=size;
+        return q1;
+    }
+
+    public float quartile3(float[] sortedArr){
+        int size = sortedArr.length/4;
+        int len = sortedArr.length;
+        float q3=0;
+        for(int i=0;i<size;i++)
+            q3+=sortedArr[len-i-1];
+        q3/=size;
+        return q3;
+    }
+
+    public float percentile1(float[] sortedArr){
+        int size = 1+sortedArr.length/100;
+        float per1=0;
+        for(int i=0;i<size;i++)
+            per1+=sortedArr[i];
+        per1/=size;
+        return per1;
+    }
+
     public float Stddev(float[] mat, int rnum, int cnum, int idx){
         float mean = Mean(mat,rnum,cnum,idx),var = 0;
         for(int i = 0;i<cnum;i++)
             var+=mat[rnum*i+idx]*mat[rnum*i+idx];
-        return (float) Math.sqrt((double)var);
+        return (float) Math.sqrt((double)(var/cnum-mean*mean));
     }
 
     public float Mean(float[] mat, int rnum, int cnum, int idx){
@@ -156,24 +261,69 @@ public class AudioStreamer {
         return mean;
     }
 
-    public float LinearCoefA(float[] mat, int rnum, int cnum, int idx){
+    public float LinearRegErrorA(float[] mat, int rnum, int cnum, int idx){
         float sumX = 0, sumXX=0, sumY=0, sumXY=0;
+        float A,b,err=0;
         for(int i = 0;i<cnum;i++){
             sumX+=i;
             sumXX+=i*i;
             sumY+=mat[rnum*i+idx];
             sumXY+=i*mat[rnum*i+idx];
         }
-        return (sumXY-sumX*sumY/cnum)/(sumXX-sumX*sumX/cnum);
+        A = (sumXY-sumX*sumY/cnum)/(sumXX-sumX*sumX/cnum);
+        b = sumY/cnum-A*sumX/cnum;
+        for(int i=0;i<cnum;i++){
+            err+=Math.abs(A*i+b-mat[rnum*i+idx]);
+        }
+        return err/cnum;
+    }
+
+    public float LinearCoefA(float[] mat, int rnum, int cnum, int idx){
+        float sumX = 0, sumXX=0, sumY=0, sumXY=0;
+        float A;
+        for(int i = 0;i<cnum;i++){
+            sumX+=i;
+            sumXX+=i*i;
+            sumY+=mat[rnum*i+idx];
+            sumXY+=i*mat[rnum*i+idx];
+        }
+        A = (sumXY-sumX*sumY/cnum)/(sumXX-sumX*sumX/cnum);
+        return A;
+    }
+
+    public float dot(float[] a,float[] b){
+        float value = 0;
+        for(int i=0;i<a.length;i++)
+            value+=a[i]*b[i];
+        return value;
     }
 
     public short[] byte2short(byte[] buf, int bufsize){
         short[] audioSeg=new short[bufsize/2];
         for (int i = 0; i <bufsize/2 ; i++) {
             audioSeg[i]=buf[i*2];
-            audioSeg[i] = (short) ((buf[2*i] << 8) | buf[2*i+1]);
+            //audioSeg[i] = (short) ((buf[2*i] << 8) | buf[2*i+1]);
+            audioSeg[i] = (short) ((buf[2*i+1] << 8) | buf[2*i]);
         }
         return audioSeg;
+    }
+
+    public int FillerDetection(){
+        float filler_output;
+        float[] sorted;
+        float[] feature = new float[5];
+        sorted = mysort(MFCCs, 39, MFCCs.length / 39, 0);
+        feature[0] = quartile1(sorted);
+        feature[1] = quartile3(sorted)-feature[0];
+        feature[2] = percentile1(sorted);
+        sorted = mysort(MFCCs,39,MFCCs.length/39,2);
+        feature[3] = quartile1(sorted);
+        feature[4] = LinearRegErrorA(MFCCs, 39, MFCCs.length / 39, 0);
+
+        filler_output = dot(classifier_coef,feature)+bias;
+        System.out.println("filler output:"+filler_output);
+
+        return 0;
     }
 
     public void startStreaming(){
@@ -185,8 +335,11 @@ public class AudioStreamer {
             @Override
             public void run(){
                 try{
+                    Object[] filler_buf = new Object[4];
+                    float[] smile_output;
+
                     int eventcount=0;
-                    int fillerEvent=0;
+                    int fillerCount=0, silenceCount=0;
                     //boolean distracted=false;
                     int distractEncode=0;
                     Message msgTalk = new Message();
@@ -195,7 +348,6 @@ public class AudioStreamer {
                     Log.d("ddd", "detecting distraction!");
                     //Thread.sleep(3000);
                     //distractionHandler.sendMessage(msgTalk);
-
                     /*
                     //initialization of socket here (client side)
                     InetAddress server_addr = InetAddress.getLocalHost();
@@ -207,16 +359,25 @@ public class AudioStreamer {
 
                     maximumEn=0;
                     while (status==true){
+                        /*
                         distractEncode = DistractionDetection();
                         //out.println("a opensmile request!");
                         //System.out.println("socket msg: "+input.read());
                         Log.d("ddd", "distraction output:" + distractEncode);
                         //if (distractEncode==1 || distractEncode==3)
-                        if (distractEncode>0)
-                            eventcount+=1;
+                        if (distractEncode!=1)
+                            eventcount++;
+                        if (distractEncode==1)
+                            silenceCount+=1;
+                        if (distractEncode==0)
+                            fillerCount=0;
+                        if (distractEncode==2 && eventcount>4)
+                            fillerCount+=1;
+                        System.out.println("eventcount: "+eventcount);
+                        System.out.println("fillerCount: "+fillerCount);
 
-
-                        if (eventcount>2 && distractEncode==0) {
+                        if (fillerCount>3) {
+                        //if (eventcount>2) {
                             //a interface toward outside
                             Log.d("ddd","maximum energy: "+maximumEn);
                             distractionHandler.sendMessage(msgTalk);
@@ -225,6 +386,39 @@ public class AudioStreamer {
                         }
 
                         Thread.sleep(300);
+                        */
+                        //final Queue<short[]> signaltmp=signalQE;
+                        if (signalQE.size()>=6){
+                            filler_buf[0] = signalQE.poll();
+                            signalQE.poll();
+                            filler_buf[1] = signalQE.poll();
+                            signalQE.poll();
+                            filler_buf[2] = signalQE.poll();
+                            filler_buf[3] = signalQE.poll();
+                            smile_output = opensmilefunc(filler_buf);
+
+                            MFCCQueue.add(smile_output);
+                            if(MFCCQueue.size()>mfccQueueSize)
+                                MFCCQueue.remove();
+
+                            Iterator it = MFCCQueue.iterator();
+                            int count=0;
+                            while(it.hasNext()){
+                                mfcc_buf = (float[])it.next();
+                                for(int i=0;i<39;i++)
+                                    MFCCs[count*39+i]=mfcc_buf[i];
+                                count+=1;
+                            }
+
+                            System.out.println("fillerbuff length: " + filler_buf.length);
+                            System.out.println("smileoutput length: " + smile_output.length);
+                            System.out.println("queue length: "+signalQE.size());
+
+                            //FillerDetection
+                            FillerDetection();
+
+                        }
+
                     }
                     //out.println("terminate");
                 }
@@ -252,6 +446,7 @@ public class AudioStreamer {
                     byte[] buffer = new byte[minBufSize];
 
 
+
                     recorder = new AudioRecord(MediaRecorder.AudioSource.MIC, sampleRate, channelConfig, audioFormat, minBufSize * 10);
                     Log.d("VS", "Recorder initialized");
 
@@ -276,10 +471,13 @@ public class AudioStreamer {
                                 //System.out.println("Get Packet: " + minBufSize);
 
                                 signalQE.add(byte2short(buffer,buffer.length));
+
                                 if (signalQE.size()>queueSize){
                                     //System.out.println("remove something");
                                     signalQE.remove();
                                 }
+
+
                                 //tmp save the history over here
                                 fop.write(buffer);
 
